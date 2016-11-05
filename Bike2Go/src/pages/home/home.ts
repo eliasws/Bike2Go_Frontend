@@ -15,10 +15,12 @@ declare var google;
 export class HomePage {
   bikeDetailPage = BikeDetailPage;
   @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('bikeSlider') slider: Slides;
+  @ViewChild('mySlider') slider: Slides;
   map: any;
   bikes: any;
   slideOptions: any;
+  bounds = new google.maps.LatLngBounds();
+
 
   constructor(public navCtrl: NavController) {
     NFC.addNdefListener((onSucces)=>{alert("NFC!"), (onError)=>{alert("no nfc?")}})
@@ -30,9 +32,9 @@ export class HomePage {
       slidesPerView: 3,
       zoom: true,
       zoomMax: 2,
-      centeredSlides: true,
-      loop: true,
-      spaceBetween: 20
+      //loop: true,
+      spaceBetween: 20,
+      initialSlide: 0
     };
   }
 
@@ -53,13 +55,15 @@ export class HomePage {
         disableDefaultUI: true,
 
       }
-
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       this.map.setOptions({ styles: MapsStyle });
 
-
-
       this.addMyPositionMarker(latLng);
+      for(let bike of this.bikes){
+        console.log(bike);
+        this.addBikeMarker(bike);
+      }
+      this.map.fitBounds(this.bounds);
 
     }, (err) => {
       console.log(err);
@@ -67,34 +71,40 @@ export class HomePage {
 
   }
 
+
   addMyPositionMarker(pos) {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: pos
+      position: pos,
     });
-
+    this.bounds.extend(marker.position);
     let content = "<h4>Hallo hier sind wir!</h4>";
-
     this.addInfoWindow(marker, content);
   }
 
-  addMarker() {
-
+  addBikeMarker(bike) {
+    console.log(JSON.stringify(bike));
+    let image = 'assets/icons/'+bike.category.type+".png";
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: new google.maps.LatLng(bike.position.lat, bike.position.lng),
+      icon : image
     });
 
-    let content = "<h4>Information!</h4>";
-
-    this.addInfoWindow(marker, content);
+    let content = "<h4>Information!</h4><br>"+bike.name;
+    this.bounds.extend(marker.position);
+    marker.addListener('click', ()=>this.changeChosenBike(bike))
+    //this.addInfoWindow(marker, content);
 
   }
 
-  addInfoWindow(marker, content) {
+  changeChosenBike(bike){
+    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
+  }
 
+  addInfoWindow(marker, content) {
     let infoWindow = new google.maps.InfoWindow({
       content: content
     });
@@ -105,10 +115,11 @@ export class HomePage {
 
   }
 
-  onSlideChanged() {
-    // let currentIndex = this.slider.getActiveIndex();
-    console.log("Current index is", "test");
+   onSlideChanged() {
+    let currentIndex = this.slider.getActiveIndex();
+    console.log("Current index is", currentIndex);
   }
+
 
   openBikeDetail(bike) {
     console.log("PUSH");
@@ -116,171 +127,4 @@ export class HomePage {
   }
 
 
-  mapsStyle = [
-    {
-      "featureType": "all",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "saturation": 36
-        },
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 40
-        }
-      ]
-    },
-    {
-      "featureType": "all",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "visibility": "on"
-        },
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 16
-        }
-      ]
-    },
-    {
-      "featureType": "all",
-      "elementType": "labels.icon",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "administrative",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 20
-        }
-      ]
-    },
-    {
-      "featureType": "administrative",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 17
-        },
-        {
-          "weight": 1.2
-        }
-      ]
-    },
-    {
-      "featureType": "landscape",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 20
-        }
-      ]
-    },
-    {
-      "featureType": "poi",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 21
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 17
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 29
-        },
-        {
-          "weight": 0.2
-        }
-      ]
-    },
-    {
-      "featureType": "road.arterial",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 18
-        }
-      ]
-    },
-    {
-      "featureType": "road.local",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 16
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 19
-        }
-      ]
-    },
-    {
-      "featureType": "water",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#000000"
-        },
-        {
-          "lightness": 17
-        }
-      ]
-    }
-  ]
 }

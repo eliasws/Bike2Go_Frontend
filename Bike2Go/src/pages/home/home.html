@@ -1,13 +1,4 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Map
-    </ion-title>
-    <ion-buttons end>
-      <button ion-button [navPush]="bikeDetailPage"><ion-icon name="add"></ion-icon>Details</button>
-    </ion-buttons>  
-  </ion-navbar>
-</ion-header>
+
 <ion-content>
  <ion-fab top right >
    <button ion-fab>Share</button>
@@ -18,19 +9,19 @@
    </ion-fab-list>
  </ion-fab>
 
- <ion-fab bottom>
+ <!--<ion-fab bottom>
    <button ion-fab>Share</button>
- </ion-fab>
+ </ion-fab>-->
 
   <div class="map-container">
     <div #map id="map"></div>
   </div>
 
   <div class="picture-bar">
-    <ion-slides #bikeSlider [options]="slideOptions" (ionDidChange)="onSlideChanged()">
+    <ion-slides #mySlider (ionDidChange)="onSlideChanged()" [options]="slideOptions" >
 
       <ion-slide *ngFor='let bike of bikes'>
-        <img (click)="openBikeDetail(bike)" src="assets/img/bike.jpg">
+        <img (click)="openBikeDetail(bike)" src="assets/img/{{bike.pictureId}}.jpg">
         <label>{{bike.name}}</label>
       </ion-slide>
 
