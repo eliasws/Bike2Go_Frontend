@@ -13,7 +13,7 @@
 </ion-header-->
 
 
-<ion-content padding>
+<ion-content overflow-scroll="false">
   <ion-card>
     <button ion-button [navPush]="homePage" class="overlay-btnLeft" icon-only><ion-icon name="arrow-back"></ion-icon></button>
     <button ion-button (click)="changeFavIcon()" class="overlay-btnRight" icon-only><ion-icon [name]="favIcon"></ion-icon></button>
@@ -37,8 +37,8 @@
     <ion-card-content>
       <ion-card-title>
         <ion-grid><ion-row><ion-col class="center">      
-            <img src="assets/icons/{{bike.category.type}}.png">
-            <br>{{bike.category.name}}
+            <img style="width:initial;display: block;margin: 0 auto;" src="assets/icons/{{bike.category.type}}_detail.png">
+            {{bike.category.name}}
            </ion-col>
            <ion-col class="center">      
             <ion-icon name="information-circle"></ion-icon>
