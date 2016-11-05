@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ion-header>
   <ion-navbar>
     <ion-title>
@@ -11,4 +12,54 @@
  
 <ion-content padding>
   <div #map id="map"></div>  
+=======
+
+
+
+
+<ion-content>
+ <ion-fab top right >
+   <button ion-fab>Share</button>
+   <ion-fab-list side="bottom">
+     <button ion-fab>Facebook</button>
+     <button ion-fab>Twitter</button>
+     <button ion-fab>Youtube</button>
+   </ion-fab-list>
+ </ion-fab>
+
+ <ion-fab bottom>
+   <button ion-fab>Share</button>
+ </ion-fab>
+
+  <div class="map-container">
+    <div #map id="map"></div>
+  </div>
+
+  <div class="picture-bar">
+    <ion-slides #bikeSlider [options]="slideOptions" (ionDidChange)="onSlideChanged()">
+
+      <ion-slide>
+        <img src="assets/img/bike.jpg">
+        <label>Monkey</label>
+      </ion-slide>
+
+        <ion-slide>
+        <img src="assets/img/bike.jpg">
+        <label>Test</label>
+      </ion-slide>
+
+        <ion-slide>
+        <img src="assets/img/bike.jpg">
+        <label>Test2</label>
+      </ion-slide>
+
+        <ion-slide>
+        <img src="assets/img/bike.jpg">
+        <label>Test3</label>
+      </ion-slide>
+
+    </ion-slides>
+  </div>
+
+>>>>>>> ea7ba0ea60963e6915df90889eeae4dbe313e472
 </ion-content>
