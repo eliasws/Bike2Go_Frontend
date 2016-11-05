@@ -22,14 +22,14 @@
     <ion-card-content>
       <ion-grid><ion-row><ion-col>
         <ion-card-title>
-          Betty
+          {{bike.name}}
         </ion-card-title>
         <p>
               <ion-icon [name]="ratingStar0"></ion-icon><ion-icon [name]="ratingStar1"></ion-icon><ion-icon [name]="ratingStar2"></ion-icon><ion-icon [name]="ratingStar3"></ion-icon><ion-icon [name]="ratingStar4"></ion-icon> 20 Bewertungen
             </p>
           </ion-col>
         <ion-col class="center">
-          <ion-card-title>10€</ion-card-title>
+          <ion-card-title>{{bike.category.price}}</ion-card-title>
         </ion-col></ion-row></ion-grid>
     </ion-card-content>
 </ion-card>
@@ -38,11 +38,11 @@
       <ion-card-title>
         <ion-grid><ion-row><ion-col class="center">      
             <ion-icon name="bicycle"></ion-icon>
-            <br>Rennrad
+            <br>{{bike.category.name}}
            </ion-col>
            <ion-col class="center">      
             <ion-icon name="information-circle"></ion-icon>
-            <br>Sehr gut
+            <br>{{bike.maintainanceStatus}}
            </ion-col></ion-row></ion-grid>
         </ion-card-title>
     </ion-card-content>

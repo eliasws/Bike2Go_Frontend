@@ -30,17 +30,17 @@
     <ion-slides #bikeSlider [options]="slideOptions" (ionDidChange)="onSlideChanged()">
 
       <ion-slide>
-        <img src="assets/img/bike.jpg">
+        <img (click)="openBikeDetail(0)" src="assets/img/bike.jpg">
         <label>Monkey</label>
       </ion-slide>
 
         <ion-slide>
-        <img src="assets/img/bike.jpg">
+        <img (click)="openBikeDetail(1)" src="assets/img/bike.jpg">
         <label>Test</label>
       </ion-slide>
 
         <ion-slide>
-        <img src="assets/img/bike.jpg">
+        <img (click)="openBikeDetail(2)" src="assets/img/bike.jpg">
         <label>Test2</label>
       </ion-slide>
 
