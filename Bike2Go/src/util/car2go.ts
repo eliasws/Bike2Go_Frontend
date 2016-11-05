@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class Car2GoService{
-  private baseUrl: string = 'https://www.car2go.com/api/v2.1/vehicles?loc=Stuttgart&oauth_consumer_key=Octopus&format=json';
+  private baseUrl: string = 'https://bikebackend.herokuapp.com/bike/api/v1/car2go/vehicles?loc=Stuttgart&oauth_consumer_key=Octopus&format=json';
   constructor(private http : Http){
   }
 

@@ -46,7 +46,7 @@ export class HomePage {
   }
 
   test(){
-    console.log("dsdfsdfs");
+    console.log(this.car2go.getAll());
   this.car2go.getAll().subscribe((test)=>console.log(test));
   }
 
