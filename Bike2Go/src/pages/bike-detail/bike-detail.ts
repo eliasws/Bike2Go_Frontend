@@ -1,6 +1,6 @@
 import {HomePage} from '../home/home';
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController,NavParams} from 'ionic-angular';
 
 /*
   Generated class for the BikeDetail page.
@@ -15,6 +15,7 @@ import {NavController} from 'ionic-angular';
 export class BikeDetailPage {
   homePage = HomePage;
 
+  bike: any;
   favIcon: any;
   ratingStar0: any;
   ratingStar1: any;
@@ -23,10 +24,13 @@ export class BikeDetailPage {
   ratingStar4: any;
   ratingStar5: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,public params:NavParams) {
     this.favIcon = "star-outline";
 
     this.setRating(2);
+
+    this.bike = params.get("bike");
+    console.log("bike name: " + this.bike.name);
   }
 
   ionViewDidLoad() {

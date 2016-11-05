@@ -1,4 +1,3 @@
-
 import {BikeDetailPage} from '../bike-detail/bike-detail';
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Slides, NavController} from 'ionic-angular';
@@ -6,7 +5,6 @@ import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
 import {MapsStyle} from '../../util/maps-util'
 import {Bikes} from '../../util/data'
-
 
 declare var google;
 
@@ -16,7 +14,6 @@ declare var google;
 })
 export class HomePage {
   bikeDetailPage = BikeDetailPage;
-     
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('bikeSlider') slider: Slides;
   map: any;
@@ -121,8 +118,13 @@ export class HomePage {
 
   onSlideChanged() {
     // let currentIndex = this.slider.getActiveIndex();
-        var realIndex = e.slides.eq(e.activeIndex).attr('data-swiper-slide-index');
     console.log("Current index is", "test");
   }
+
+  openBikeDetail(bike) {
+    console.log("PUSH");
+    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
+  }
+
 
 }
