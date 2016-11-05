@@ -4,7 +4,8 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {BikeDetailPage} from '../pages/bike-detail/bike-detail';
-import {ListViewPage} from '../pages/list-view/list-view'
+import {ListViewPage} from '../pages/list-view/list-view';
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {ListViewPage} from '../pages/list-view/list-view'
     ListViewPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
