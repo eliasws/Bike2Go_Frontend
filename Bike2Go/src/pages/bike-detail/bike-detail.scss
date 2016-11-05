@@ -6,10 +6,6 @@
             width: 100%;
         }
 
-        .scroll-content {
-            padding:0px;
-        }
-
         .card-md {
             margin:0px;
             width:100%;
@@ -39,6 +35,9 @@
         .center {
             text-align:center;
         }
-
+        
+        .noPadding {
+            padding:0px;
+        }
     }
 }
