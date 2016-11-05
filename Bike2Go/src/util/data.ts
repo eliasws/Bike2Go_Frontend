@@ -55,7 +55,7 @@ export let Bikes= [
     description: "Outdoor Fahrrad",
     maintenanceStatus : 404,
     rating : 3,
-    pictureId : "monkey",
+    pictureId : "betty",
     category : {
         id: 4,
     type: "OUTDOOR",

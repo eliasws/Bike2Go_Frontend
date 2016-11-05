@@ -9,16 +9,16 @@
    </ion-fab-list>
  </ion-fab>
 
- <ion-fab bottom>
+ <!--<ion-fab bottom>
    <button ion-fab>Share</button>
- </ion-fab>
+ </ion-fab>-->
 
   <div class="map-container">
     <div #map id="map"></div>
   </div>
 
   <div class="picture-bar">
-    <ion-slides #bikeSlider [options]="slideOptions" (ionDidChange)="onSlideChanged()">
+    <ion-slides #mySlider (ionDidChange)="onSlideChanged()" [options]="slideOptions" >
 
       <ion-slide *ngFor='let bike of bikes'>
         <img (click)="openBikeDetail(bike)" src="assets/img/{{bike.pictureId}}.jpg">

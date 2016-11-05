@@ -15,7 +15,7 @@ declare var google;
 export class HomePage {
   bikeDetailPage = BikeDetailPage;
   @ViewChild('map') mapElement: ElementRef;
-  @ViewChild('bikeSlider') slider: Slides;
+  @ViewChild('mySlider') slider: Slides;
   map: any;
   bikes: any;
   slideOptions: any;
@@ -32,9 +32,9 @@ export class HomePage {
       slidesPerView: 3,
       zoom: true,
       zoomMax: 2,
-      centeredSlides: true,
-      loop: true,
-      spaceBetween: 20
+      //loop: true,
+      spaceBetween: 20,
+      initialSlide: 0
     };
   }
 
@@ -71,6 +71,7 @@ export class HomePage {
 
   }
 
+
   addMyPositionMarker(pos) {
     let marker = new google.maps.Marker({
       map: this.map,
@@ -94,15 +95,13 @@ export class HomePage {
 
     let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
-    marker.addListener('click', function(){
-      this.changeChosenBike(bike);
-    })
+    marker.addListener('click', ()=>this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
 
   }
 
   changeChosenBike(bike){
-      alert("test")
+    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
   }
 
   addInfoWindow(marker, content) {
@@ -116,10 +115,11 @@ export class HomePage {
 
   }
 
-  onSlideChanged() {
-    // let currentIndex = this.slider.getActiveIndex();
-    console.log("Current index is", this.slider.slider.activeIndex);
+   onSlideChanged() {
+    let currentIndex = this.slider.getActiveIndex();
+    console.log("Current index is", currentIndex);
   }
+
 
   openBikeDetail(bike) {
     console.log("PUSH");
