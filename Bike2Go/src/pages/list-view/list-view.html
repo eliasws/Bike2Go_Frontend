@@ -13,9 +13,9 @@
       <img style="vertical-align:middle" src="assets/img/{{bike.pictureId}}.jpg">
     </ion-thumbnail>
     <h2>{{bike.name}}</h2>
-    <p>{{bike.description}}</p>
+    <p><span></span> 20 Bewertungen</p>
     <!--button clear item-right>View</button-->
-    <p item-right>1.5 km</p>
+    <p item-right><b>{{calculateDistance(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
   </ion-item>
 </ion-list>
 </ion-content>
