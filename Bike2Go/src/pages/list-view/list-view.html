@@ -8,14 +8,15 @@
 
 <ion-content overflow-scroll="false"> 
   <ion-list *ngFor='let bike of bikes' style="margin:0px">
-  <ion-item style="border-top:0px">
+  <ion-item (click)="openBikeDetail(bike)" style="border-top:0px">
     <ion-thumbnail item-left>
-      <img style="vertical-align:middle" src="assets/img/{{bike.pictureId}}.jpg">
+      <img style="padding:12px 0px 0px 0px" src="assets/img/{{bike.pictureId}}.jpg">
     </ion-thumbnail>
     <h2>{{bike.name}}</h2>
-    <p><span></span> 20 Bewertungen</p>
+    <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> 20 Bewertungen</p>
     <!--button clear item-right>View</button-->
     <p item-right><b>{{calculateDistance(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
   </ion-item>
 </ion-list>
+
 </ion-content>

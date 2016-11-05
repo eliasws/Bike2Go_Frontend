@@ -1,3 +1,4 @@
+import {BikeDetailPage} from '../bike-detail/bike-detail';
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {Bikes} from '../../util/data';
@@ -18,7 +19,8 @@ export class ListViewPage {
   ratingStar4: any;
   userPosition: any;
   inner: any;
-  
+  bikeDetailPage = BikeDetailPage;
+
   constructor(public navCtrl: NavController) {
       this.bikes = Bikes;
 
@@ -27,7 +29,6 @@ export class ListViewPage {
     this.ratingStar2 = "star-outline";
     this.ratingStar3 = "star-outline";
     this.ratingStar4 = "star-outline";
-    this.inner = "<img src='assets/img/betty.jpg>";
 
     Geolocation.getCurrentPosition().then((userPosition) => {
 
@@ -78,7 +79,7 @@ export class ListViewPage {
   }
 
   getRatingStars(bikeRating) {
-    let htmlResult = "";
+    /*let htmlResult = "";
 
     for(let i = 0; i < bikeRating; i++) {
       htmlResult += "<ion-icon name='star'></ion-icon>"
@@ -88,9 +89,14 @@ export class ListViewPage {
       htmlResult += "<ion-icon name='star-outline'></ion-icon>"
     }
 
-    return htmlResult;
+    return htmlResult;*/
+    console.log("BIKERATING: " + bikeRating);
+    return "<ion-icon name='information-circle'></ion-icon>";
   }
 
+  openBikeDetail(bike) {
+    this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
+  }
 
 }
 

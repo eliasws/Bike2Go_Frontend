@@ -1,9 +1,9 @@
-import {BikeDetailPage} from '../bike-detail/bike-detail';
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Slides, NavController} from 'ionic-angular';
+import { BikeDetailPage } from '../bike-detail/bike-detail';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Slides, NavController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import {NFC} from 'ionic-native';
-import {UserLocation, MapsStyle} from '../../util/maps-util';
+import { NFC } from 'ionic-native';
+import { MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
 import {Car2GoService} from '../../util/car2go'
 
@@ -22,9 +22,7 @@ export class HomePage {
   slideOptions: any;
   bounds = new google.maps.LatLngBounds();
 
-
-  constructor(public navCtrl: NavController, public car2go :Car2GoService) {
-    NFC.addNdefListener((onSucces)=>{alert("NFC!"), (onError)=>{alert("no nfc?")}})
+  constructor(public navCtrl: NavController, public car2go :Car2GoService, public platform: Platform) {
 
     this.bikes = Bikes;
 
@@ -37,12 +35,16 @@ export class HomePage {
       spaceBetween: 1,
       initialSlide: 0
     };
-}
 
-  
+  }
+
 
   ionViewDidLoad() {
-    this.loadMap();
+    this.platform.ready().then(() => {
+      NFC.addNdefListener((onSucces) => { alert("NFC!"), (onError) => { alert("no nfc?") } })
+      this.loadMap();
+    });
+
   }
 
   test(){
@@ -51,43 +53,51 @@ export class HomePage {
   }
 
   loadMap() {
-    Geolocation.getCurrentPosition().then((position) => {
+    let options = { enableHighAccuracy: true, maximumAge: 100, timeout: 60000 };
 
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      
+    Geolocation.getCurrentPosition(options).then(
+      (position) => {
+        this.onGeoSuccess(position)
+      }, (err) => {
+        console.log(err);
+      });
 
+          let latLng = new google.maps.LatLng(48.815384, 9.212546);
+          this.createMap(latLng);
+  }
 
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeIds: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true,
-
-      }
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.map.setOptions({ styles: MapsStyle });
-
-      this.addMyPositionMarker(latLng);
-      for(let bike of this.bikes){
-        console.log(bike);
-        this.addBikeMarker(bike);
-      }
-      this.map.fitBounds(this.bounds);
-
-    }, (err) => {
-      console.log(err);
-    });
-
+  onGeoSuccess(position) {
+    let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    this.createMap(latLng)
   }
 
 
+  createMap(latLng) {
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeIds: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.map.setOptions({ styles: MapsStyle });
+
+    this.addMyPositionMarker(latLng);
+    for (let bike of this.bikes) {
+      console.log(bike);
+      this.addBikeMarker(bike);
+    }
+    this.map.fitBounds(this.bounds);
+  }
+
   addMyPositionMarker(pos) {
-        let image = 'assets/icons/standort.png';
+    let image = 'assets/icons/standort.png';
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: pos,
-      icon : image
+      icon: image
     });
     this.bounds.extend(marker.position);
     let content = "<h4>Hallo hier sind wir!</h4>";
@@ -95,22 +105,23 @@ export class HomePage {
   }
 
   addBikeMarker(bike) {
-    let image = 'assets/icons/'+bike.category.type+".png";
+    let image = 'assets/icons/' + bike.category.type + ".png";
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: new google.maps.LatLng(bike.position.lat, bike.position.lng),
-      icon : image
+      icon: image
     });
 
+    let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
-    marker.addListener('click', ()=>this.changeChosenBike(bike))
+    marker.addListener('click', () => this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
 
   }
 
-  changeChosenBike(bike){
-    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
+  changeChosenBike(bike) {
+    this.navCtrl.push(this.bikeDetailPage, { bike: bike });
   }
 
   addInfoWindow(marker, content) {
@@ -124,7 +135,7 @@ export class HomePage {
 
   }
 
-   onSlideChanged() {
+  onSlideChanged() {
     let currentIndex = this.slider.getActiveIndex();
     console.log("Current index is", currentIndex);
   }
@@ -132,7 +143,7 @@ export class HomePage {
 
   openBikeDetail(bike) {
     console.log("PUSH");
-    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
+    this.navCtrl.push(this.bikeDetailPage, { bike: bike });
   }
 
 
