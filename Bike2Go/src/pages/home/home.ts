@@ -42,15 +42,15 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      NFC.addNdefListener((onSucces) => { alert("NFC!"), (onError) => { alert("no nfc?") } })
+      NFC.addNdefListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)});
+      NFC.addMimeTypeListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
+      NFC.addTagDiscoveredListener("text",(onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
+      //NFC.enabled().then((onSucces) => { alert("NFC!"); console.log(onSucces) });
       this.loadMap();
     });
 
   }
 
-  test(){
-    console.log(this.car2go.getAll());
-  }
 
   loadMap() {
     let options = { enableHighAccuracy: true, maximumAge: 100, timeout: 60000 };
@@ -86,16 +86,13 @@ export class HomePage {
 
 
       for (let car of cars){
-          console.log(car);
           let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
           this.addMyPositionCar2Gp(latLng);
-          console.log(latLng);
       }
     
   });
     this.addMyPositionMarker(latLng);
     for (let bike of this.bikes) {
-      console.log(bike);
       this.addBikeMarker(bike);
     }
 
@@ -155,7 +152,6 @@ export class HomePage {
 
   onSlideChanged() {
     let currentIndex = this.slider.getActiveIndex();
-    console.log("Current index is", currentIndex);
   }
 
   openBikeDetail(bike) {
