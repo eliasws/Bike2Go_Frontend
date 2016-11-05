@@ -29,24 +29,9 @@
   <div class="picture-bar">
     <ion-slides #bikeSlider [options]="slideOptions" (ionDidChange)="onSlideChanged()">
 
-      <ion-slide>
-        <img (click)="openBikeDetail(0)" src="assets/img/bike.jpg">
-        <label>Monkey</label>
-      </ion-slide>
-
-        <ion-slide>
-        <img (click)="openBikeDetail(1)" src="assets/img/bike.jpg">
-        <label>Test</label>
-      </ion-slide>
-
-        <ion-slide>
-        <img (click)="openBikeDetail(2)" src="assets/img/bike.jpg">
-        <label>Test2</label>
-      </ion-slide>
-
-        <ion-slide>
-        <img src="assets/img/bike.jpg">
-        <label>Test3</label>
+      <ion-slide *ngFor='let bike of bikes'>
+        <img (click)="openBikeDetail(bike)" src="assets/img/bike.jpg">
+        <label>{{bike.name}}</label>
       </ion-slide>
 
     </ion-slides>

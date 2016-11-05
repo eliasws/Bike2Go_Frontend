@@ -30,6 +30,7 @@ export class BikeDetailPage {
     this.setRating(2);
 
     this.bike = params.get("bike");
+    console.log("bike name: " + this.bike.name);
   }
 
   ionViewDidLoad() {
