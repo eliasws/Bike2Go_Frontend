@@ -3,7 +3,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Slides, NavController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
-import {MapsStyle} from '../../util/maps-util'
+import {userLocation, MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
 
 declare var google;
@@ -43,10 +43,10 @@ export class HomePage {
   }
 
   loadMap() {
-
     Geolocation.getCurrentPosition().then((position) => {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      
 
       let mapOptions = {
         center: latLng,
