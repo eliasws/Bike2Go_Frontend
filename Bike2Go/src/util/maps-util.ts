@@ -1,3 +1,4 @@
+export let UserLocation = {};
 export let MapsStyle = [
     {
         "featureType": "administrative",

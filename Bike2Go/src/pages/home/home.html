@@ -16,12 +16,13 @@
   <div class="map-container">
     <div #map id="map"></div>
   </div>
-
   <div class="picture-bar">
     <ion-slides #mySlider (ionDidChange)="onSlideChanged()" [options]="slideOptions" >
 
       <ion-slide *ngFor='let bike of bikes'>
+        <div class="image-container">
         <img (click)="openBikeDetail(bike)" src="assets/img/{{bike.pictureId}}.jpg">
+        </div>
         <label>{{bike.name}}</label>
       </ion-slide>
 
