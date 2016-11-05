@@ -3,7 +3,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Slides, NavController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
-import {userLocation, MapsStyle} from '../../util/maps-util';
+import {UserLocation, MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
 import {Car2GoService} from '../../util/car2go'
 
