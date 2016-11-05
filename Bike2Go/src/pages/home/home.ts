@@ -41,7 +41,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      NFC.addNdefListener((onSucces) => { alert("NFC!"), (onError) => { alert("no nfc?") } })
+      NFC.addTagDiscoveredListener("text/plain",(onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
       this.loadMap();
     });
 
