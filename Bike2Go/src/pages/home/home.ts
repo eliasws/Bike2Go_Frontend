@@ -102,7 +102,7 @@ export class HomePage {
   }
 
   changeChosenBike(bike){
-
+      alert("test")
   }
 
   addInfoWindow(marker, content) {
@@ -118,7 +118,7 @@ export class HomePage {
 
   onSlideChanged() {
     // let currentIndex = this.slider.getActiveIndex();
-    console.log("Current index is", "test");
+    console.log("Current index is", this.slider.slider.activeIndex);
   }
 
   openBikeDetail(bike) {
