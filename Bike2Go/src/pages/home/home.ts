@@ -3,8 +3,9 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Slides, NavController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import { NFC } from 'ionic-native';
-import { MapsStyle } from '../../util/maps-util';
-import { Bikes } from '../../util/data'
+import { MapsStyle} from '../../util/maps-util';
+import {Bikes} from '../../util/data'
+import {Car2GoService} from '../../util/car2go'
 
 declare var google;
 
@@ -21,8 +22,7 @@ export class HomePage {
   slideOptions: any;
   bounds = new google.maps.LatLngBounds();
 
-
-  constructor(public navCtrl: NavController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public car2go :Car2GoService, public platform: Platform) {
 
     this.bikes = Bikes;
 
@@ -36,10 +36,7 @@ export class HomePage {
       initialSlide: 0
     };
 
-
-
   }
-
 
 
   ionViewDidLoad() {
@@ -48,6 +45,11 @@ export class HomePage {
       this.loadMap();
     });
 
+  }
+
+  test(){
+    console.log("dsdfsdfs");
+  this.car2go.getAll().subscribe((test)=>console.log(test));
   }
 
   loadMap() {
@@ -111,6 +113,7 @@ export class HomePage {
       icon: image
     });
 
+    let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
     marker.addListener('click', () => this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);

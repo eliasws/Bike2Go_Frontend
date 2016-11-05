@@ -4,7 +4,10 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {TabsPage} from '../pages/tabs/tabs';
 import {BikeDetailPage} from '../pages/bike-detail/bike-detail';
-import {ListViewPage} from '../pages/list-view/list-view'
+import {ListViewPage} from '../pages/list-view/list-view';
+import { Ionic2RatingModule } from 'ionic2-rating';
+import { HttpModule } from '@angular/http';
+import {Car2GoService} from '../util/car2go'
 
 @NgModule({
   declarations: [
@@ -15,7 +18,8 @@ import {ListViewPage} from '../pages/list-view/list-view'
     ListViewPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp), HttpModule,
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -25,6 +29,6 @@ import {ListViewPage} from '../pages/list-view/list-view'
     TabsPage,
     ListViewPage
   ],
-  providers: []
+  providers: [Car2GoService]
 })
 export class AppModule {}
