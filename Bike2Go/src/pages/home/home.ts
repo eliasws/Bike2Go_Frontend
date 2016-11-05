@@ -1,7 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {BikeDetailPage} from '../bike-detail/bike-detail';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {NavController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
- 
+
+
 declare var google;
  
 @Component({
@@ -9,12 +11,13 @@ declare var google;
   templateUrl: 'home.html'
 })
 export class HomePage {
- 
+  bikeDetailPage = BikeDetailPage;
+     
   @ViewChild('map') mapElement: ElementRef;
   map: any;
  
   constructor(public navCtrl: NavController) {
- 
+
   }
  
   ionViewDidLoad(){
@@ -68,6 +71,10 @@ export class HomePage {
  
   this.addInfoWindow(marker, content);
  
+}
+
+bikeDetail() {
+  
 }
 
 addInfoWindow(marker, content){

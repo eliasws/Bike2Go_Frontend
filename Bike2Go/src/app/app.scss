@@ -14,3 +14,14 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.img {
+        vertical-align: top;
+        width: 2000px;
+    }
+
+    .scroll-content {
+        padding-top:0px;
+        padding-bottom:0px;
+        padding-left:0px;
+        padding-right:0px;
+    }
