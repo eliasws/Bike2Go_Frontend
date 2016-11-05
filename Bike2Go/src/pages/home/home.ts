@@ -3,8 +3,9 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Slides, NavController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
-import {userLocation, MapsStyle} from '../../util/maps-util';
+import {UserLocation, MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
+import {Car2GoService} from '../../util/car2go'
 
 declare var google;
 
@@ -22,7 +23,7 @@ export class HomePage {
   bounds = new google.maps.LatLngBounds();
 
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public car2go :Car2GoService) {
     NFC.addNdefListener((onSucces)=>{alert("NFC!"), (onError)=>{alert("no nfc?")}})
 
     this.bikes = Bikes;
@@ -33,13 +34,20 @@ export class HomePage {
       zoom: true,
       zoomMax: 2,
       //loop: true,
-      spaceBetween: 20,
+      spaceBetween: 1,
       initialSlide: 0
     };
-  }
+}
+
+  
 
   ionViewDidLoad() {
     this.loadMap();
+  }
+
+  test(){
+    console.log("dsdfsdfs");
+  this.car2go.getAll().subscribe((test)=>console.log(test));
   }
 
   loadMap() {
@@ -47,6 +55,7 @@ export class HomePage {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       
+
 
       let mapOptions = {
         center: latLng,
@@ -73,10 +82,12 @@ export class HomePage {
 
 
   addMyPositionMarker(pos) {
+        let image = 'assets/icons/standort.png';
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: pos,
+      icon : image
     });
     this.bounds.extend(marker.position);
     let content = "<h4>Hallo hier sind wir!</h4>";
@@ -84,7 +95,6 @@ export class HomePage {
   }
 
   addBikeMarker(bike) {
-    console.log(JSON.stringify(bike));
     let image = 'assets/icons/'+bike.category.type+".png";
     let marker = new google.maps.Marker({
       map: this.map,
@@ -93,7 +103,6 @@ export class HomePage {
       icon : image
     });
 
-    let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
     marker.addListener('click', ()=>this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
