@@ -37,9 +37,9 @@ export class HomePage {
       spaceBetween: 1,
       initialSlide: 0
     };
-}
+  }
 
-  
+
 
   ionViewDidLoad() {
     this.loadMap();
@@ -95,6 +95,7 @@ export class HomePage {
   }
 
   addBikeMarker(bike) {
+    console.log(JSON.stringify(bike));
     let image = 'assets/icons/'+bike.category.type+".png";
     let marker = new google.maps.Marker({
       map: this.map,
@@ -103,6 +104,7 @@ export class HomePage {
       icon : image
     });
 
+    let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
     marker.addListener('click', ()=>this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
