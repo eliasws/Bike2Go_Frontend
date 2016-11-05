@@ -1,8 +1,8 @@
 import {BikeDetailPage} from '../bike-detail/bike-detail';
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {ModalController} from 'ionic-angular';
 import {Bikes} from '../../util/data';
-import { Geolocation } from 'ionic-native';
+import {LocationUtil} from '../../providers/location-util'
 
 declare var google;
 
@@ -21,7 +21,7 @@ export class ListViewPage {
   inner: any;
   bikeDetailPage = BikeDetailPage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public modalCtrl: ModalController,public locationUtil : LocationUtil) {
       this.bikes = Bikes;
 
     this.ratingStar0 = "star-outline";
@@ -29,73 +29,16 @@ export class ListViewPage {
     this.ratingStar2 = "star-outline";
     this.ratingStar3 = "star-outline";
     this.ratingStar4 = "star-outline";
-
-    Geolocation.getCurrentPosition().then((userPosition) => {
-
-      this.userPosition = userPosition;
-      console.log("LATITUDE: " + userPosition.coords.latitude);
-      console.log("LONGITUDE: " + userPosition.coords.longitude);
-
-    }, (err) => {
-      console.log(err);
-    });
   }
 
   ionViewDidLoad() {
     console.log('Hello ListViewPage Page');
   }
 
-  deg2rad(deg) {
-    return deg * (Math.PI/180);
-  }
-
-  FormatDistance(distance) {
-    if(distance > 1) {
-      return Math.round(distance * 10) / 10 + " km";
-    }
-    else {
-      return Math.round(distance * 100) * 10 + " m";
-    }
-  }
-
-  calculateDistance(bikePosition) {
-	  try {
-      let R = 6371; // Radius of the earth in km
-      let dLat = this.deg2rad(this.userPosition.coords.latitude - bikePosition.lat);
-      let dLon = this.deg2rad(this.userPosition.coords.longitude - bikePosition.lng);
-      let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-              Math.cos(this.deg2rad(bikePosition.lat)) * Math.cos(this.deg2rad(this.userPosition.coords.latitude)) * 
-              Math.sin(dLon/2) * Math.sin(dLon/2);
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-
-      // Distance in km
-      let dist = R * c;
-
-      return this.FormatDistance(dist);
-    }
-    catch (e) {
-      return;
-    }
-  }
-
-  getRatingStars(bikeRating) {
-    /*let htmlResult = "";
-
-    for(let i = 0; i < bikeRating; i++) {
-      htmlResult += "<ion-icon name='star'></ion-icon>"
-    }
-
-    for(let i = 5; i > bikeRating; i--) {
-      htmlResult += "<ion-icon name='star-outline'></ion-icon>"
-    }
-
-    return htmlResult;*/
-    console.log("BIKERATING: " + bikeRating);
-    return "<ion-icon name='information-circle'></ion-icon>";
-  }
-
   openBikeDetail(bike) {
-    this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
+    //this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
+    const modal = this.modalCtrl.create(BikeDetailPage,{bike:bike});
+    modal.present(modal);
   }
 
 }

@@ -9,7 +9,7 @@ export let Bikes= [
         id: 1,
     type: "BIKE",
     price : 1.50, 
-    name : "Normales Fahrrad"
+    name : "Standard"
     },
     position : {
         lat: "48.814116",
@@ -69,7 +69,7 @@ export let Bikes= [
     },
     { id : 5,
     name : "Fahrrädle",
-    description: "Outdoor Fahrrad",
+    description: "Outdoor",
     maintenanceStatus : 200,
     rating : 4,
     pictureId : "betty",

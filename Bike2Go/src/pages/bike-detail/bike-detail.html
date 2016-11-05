@@ -29,7 +29,8 @@
             </p>
           </ion-col>
         <ion-col class="center">
-          <ion-card-title>{{bike.category.price}} € / h</ion-card-title>
+          <ion-card-title>{{locationUtil.calculateDistance(bike.position)}}</ion-card-title>
+          {{bike.category.price}} € / h
         </ion-col></ion-row></ion-grid>
     </ion-card-content>
 </ion-card>
@@ -49,8 +50,9 @@
   </ion-card>
   <ion-card>
     <ion-card-content class="center">
-      <button ion-button style="width:60px;height:60px" icon-only round><img src="../../assets/icons/lock_{{bike.category.type}}.png"/></button>
-      <button ion-button style="width:60px;height:60px" icon-only round><ion-icon name="qr-scanner"></ion-icon></button>
+      <button ion-button (click)="openLock()" style="width:60px;height:60px" icon-only round><img src="../../assets/icons/lock_{{bike.category.type}}.png"/></button>
+      <button ion-button (click)="makeSound()" style="width:60px;height:60px" icon-only round><ion-icon name="alarm"></ion-icon></button>
+      {{lockStatus}}
     </ion-card-content>
   </ion-card>
 </ion-content>

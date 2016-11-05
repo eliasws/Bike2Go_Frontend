@@ -15,7 +15,7 @@
     <h2>{{bike.name}}</h2>
     <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> 20 Bewertungen</p>
     <!--button clear item-right>View</button-->
-    <p item-right><b>{{calculateDistance(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
+    <p item-right><b>{{locationUtil.calculateDistance(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
   </ion-item>
 </ion-list>
 

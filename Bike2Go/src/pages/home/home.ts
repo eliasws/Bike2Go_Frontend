@@ -1,9 +1,10 @@
+import {of} from '../../../node_modules/rxjs/src/observable/of';
 import {BikeDetailPage} from '../bike-detail/bike-detail';
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Slides, NavController} from 'ionic-angular';
+import {Slides, ModalController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
-import {UserLocation, MapsStyle} from '../../util/maps-util';
+import {MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
 import {Car2GoService} from '../../util/car2go'
 
@@ -23,7 +24,7 @@ export class HomePage {
   bounds = new google.maps.LatLngBounds();
 
 
-  constructor(public navCtrl: NavController, public car2go :Car2GoService) {
+  constructor(public modalCtrl: ModalController, public car2go :Car2GoService) {
     NFC.addNdefListener((onSucces)=>{alert("NFC!"), (onError)=>{alert("no nfc?")}})
 
     this.bikes = Bikes;
@@ -106,13 +107,9 @@ export class HomePage {
 
     let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
-    marker.addListener('click', ()=>this.changeChosenBike(bike))
+    marker.addListener('click', ()=>this.openBikeDetail(bike))
     //this.addInfoWindow(marker, content);
 
-  }
-
-  changeChosenBike(bike){
-    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
   }
 
   addInfoWindow(marker, content) {
@@ -131,10 +128,10 @@ export class HomePage {
     console.log("Current index is", currentIndex);
   }
 
-
   openBikeDetail(bike) {
-    console.log("PUSH");
-    this.navCtrl.push(this.bikeDetailPage,{bike:bike});
+    //this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
+    const modal = this.modalCtrl.create(BikeDetailPage,{bike:bike});
+    modal.present(modal);
   }
 
 
