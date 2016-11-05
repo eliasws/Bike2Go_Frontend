@@ -1,14 +1,9 @@
-<<<<<<< HEAD
+
 import {BikeDetailPage} from '../bike-detail/bike-detail';
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import { Geolocation } from 'ionic-native';
-=======
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Slides, NavController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
->>>>>>> ea7ba0ea60963e6915df90889eeae4dbe313e472
 
 
 declare var google;
@@ -18,21 +13,14 @@ declare var google;
   templateUrl: 'home.html'
 })
 export class HomePage {
-<<<<<<< HEAD
   bikeDetailPage = BikeDetailPage;
      
-=======
-
->>>>>>> ea7ba0ea60963e6915df90889eeae4dbe313e472
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('bikeSlider') slider: Slides;
   map: any;
   slideOptions: any;
 
   constructor(public navCtrl: NavController) {
-<<<<<<< HEAD
-
-=======
     NFC.addNdefListener((onSucces)=>{alert("Du huso!"), (onError)=>{alert("no nfc?")}})
 
     this.slideOptions = {
@@ -44,7 +32,6 @@ export class HomePage {
       loop: true,
       spaceBetween: 20
     };
->>>>>>> ea7ba0ea60963e6915df90889eeae4dbe313e472
   }
 
   ionViewDidLoad() {
@@ -289,24 +276,4 @@ export class HomePage {
       ]
     }
   ]
-
-<<<<<<< HEAD
-bikeDetail() {
-  
-}
-
-addInfoWindow(marker, content){
- 
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
- 
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.open(this.map, marker);
-  });
- 
-}
- 
-=======
->>>>>>> ea7ba0ea60963e6915df90889eeae4dbe313e472
 }
