@@ -49,7 +49,6 @@ export class HomePage {
 
   test(){
     console.log(this.car2go.getAll());
-  this.car2go.getAll().subscribe((test)=>console.log(test));
   }
 
   loadMap() {
@@ -82,13 +81,24 @@ export class HomePage {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.map.setOptions({ styles: MapsStyle });
+    this.car2go.getAll().subscribe((cars)=>{
 
+
+      for (let car of cars){
+          console.log(car);
+          let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
+          this.addMyPositionCar2Gp(latLng);
+          console.log(latLng);
+      }
+    
+  });
     this.addMyPositionMarker(latLng);
     for (let bike of this.bikes) {
       console.log(bike);
       this.addBikeMarker(bike);
     }
-    this.map.fitBounds(this.bounds);
+
+//this.map.fitBounds(this.bounds);
   }
 
   addMyPositionMarker(pos) {
@@ -104,6 +114,17 @@ export class HomePage {
     this.addInfoWindow(marker, content);
   }
 
+    addMyPositionCar2Gp(pos) {
+    let image = 'assets/icons/Car2Go.png';
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: pos,
+      icon: image
+    });
+    this.bounds.extend(marker.position);
+  }
+
   addBikeMarker(bike) {
     let image = 'assets/icons/' + bike.category.type + ".png";
     let marker = new google.maps.Marker({
@@ -114,7 +135,7 @@ export class HomePage {
     });
 
     let content = "<h4>Information!</h4><br>"+bike.name;
-    this.bounds.extend(marker.position);
+    //this.bounds.extend(marker.position);
     marker.addListener('click', () => this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
 

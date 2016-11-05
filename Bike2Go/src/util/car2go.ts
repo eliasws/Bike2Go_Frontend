@@ -10,11 +10,11 @@ export class Car2GoService{
   }
 
   getAll(): Observable<any>{ 
-    let vehicles$ = this.http
-      .get(this.baseUrl);
-      
-      console.log(vehicles$);
-      return vehicles$;
+    return this.http.get(this.baseUrl)
+                        // ...and calling .json() on the response to return data
+                         .map((res) => res.json().placemarks)
+                         //...errors if any
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
   }
 
   private getHeaders(){
