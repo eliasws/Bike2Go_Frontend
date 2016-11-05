@@ -10,6 +10,10 @@ export let Bikes= [
     type: "BIKE",
     price : 0.10, 
     name : "Normales Fahrrad"
+    },
+    position : {
+        lat: "48.814116",
+        lng: "9.210639"
     }
     },
      { id : 2,
@@ -23,6 +27,10 @@ export let Bikes= [
     type: "SPORT",
     price : 0.15, 
     name : "Rennrad"
+    },
+     position : {
+        lat: "48.817875",
+        lng: "9.203982"
     }
     },
      { id : 3,
@@ -36,6 +44,10 @@ export let Bikes= [
     type: "EBIKE",
     price : 0.20, 
     name : "E-Bike"
+    },
+      position : {
+        lat: "48.814630",
+        lng: "9.212267"
     }
     },
      { id : 1,
@@ -49,6 +61,11 @@ export let Bikes= [
     type: "OUTDOOR",
     price : 0.10, 
     name : "Outdoor"
+    },
+    position : {
+        lat: "48.816808",
+        lng: "9.211650"
     }
+
     }
 ]
