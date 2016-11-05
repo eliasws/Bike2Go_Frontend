@@ -1,12 +1,11 @@
-import {of} from '../../../node_modules/rxjs/src/observable/of';
-import {BikeDetailPage} from '../bike-detail/bike-detail';
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Slides, ModalController} from 'ionic-angular';
+import { BikeDetailPage } from '../bike-detail/bike-detail';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Slides, ModalController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import {NFC} from 'ionic-native';
-import {MapsStyle} from '../../util/maps-util';
-import {Bikes} from '../../util/data'
-import {Car2GoService} from '../../util/car2go'
+import { NFC } from 'ionic-native';
+import { MapsStyle} from '../../util/maps-util';
+import {Bikes} from '../../util/data';
+import {Car2GoService} from '../../util/car2go';
 
 declare var google;
 
@@ -24,8 +23,7 @@ export class HomePage {
   bounds = new google.maps.LatLngBounds();
 
 
-  constructor(public modalCtrl: ModalController, public car2go :Car2GoService) {
-    NFC.addNdefListener((onSucces)=>{alert("NFC!"), (onError)=>{alert("no nfc?")}})
+  constructor(public modalCtrl: ModalController, public car2go :Car2GoService, public platform: Platform) {
 
     this.bikes = Bikes;
 
@@ -38,76 +36,108 @@ export class HomePage {
       spaceBetween: 1,
       initialSlide: 0
     };
-  }
 
+  }
 
 
   ionViewDidLoad() {
-    this.loadMap();
-  }
-
-  test(){
-    console.log("dsdfsdfs");
-  this.car2go.getAll().subscribe((test)=>console.log(test));
-  }
-
-  loadMap() {
-    Geolocation.getCurrentPosition().then((position) => {
-
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      
-
-
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeIds: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true,
-
-      }
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.map.setOptions({ styles: MapsStyle });
-
-      this.addMyPositionMarker(latLng);
-      for(let bike of this.bikes){
-        console.log(bike);
-        this.addBikeMarker(bike);
-      }
-      this.map.fitBounds(this.bounds);
-
-    }, (err) => {
-      console.log(err);
+    this.platform.ready().then(() => {
+      NFC.addNdefListener((onSucces) => { alert("NFC!"), (onError) => { alert("no nfc?") } })
+      this.loadMap();
     });
 
   }
 
+  test(){
+    console.log(this.car2go.getAll());
+  }
+
+  loadMap() {
+    let options = { enableHighAccuracy: true, maximumAge: 100, timeout: 60000 };
+
+    Geolocation.getCurrentPosition(options).then(
+      (position) => {
+        this.onGeoSuccess(position)
+      }, (err) => {
+        console.log(err);
+      });
+
+          let latLng = new google.maps.LatLng(48.815384, 9.212546);
+          this.createMap(latLng);
+  }
+
+  onGeoSuccess(position) {
+    let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    this.createMap(latLng)
+  }
+
+
+  createMap(latLng) {
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeIds: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.map.setOptions({ styles: MapsStyle });
+    this.car2go.getAll().subscribe((cars)=>{
+
+
+      for (let car of cars){
+          console.log(car);
+          let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
+          this.addMyPositionCar2Gp(latLng);
+          console.log(latLng);
+      }
+    
+  });
+    this.addMyPositionMarker(latLng);
+    for (let bike of this.bikes) {
+      console.log(bike);
+      this.addBikeMarker(bike);
+    }
+
+//this.map.fitBounds(this.bounds);
+  }
 
   addMyPositionMarker(pos) {
-        let image = 'assets/icons/standort.png';
+    let image = 'assets/icons/standort.png';
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: pos,
-      icon : image
+      icon: image
     });
     this.bounds.extend(marker.position);
     let content = "<h4>Hallo hier sind wir!</h4>";
     this.addInfoWindow(marker, content);
   }
 
+    addMyPositionCar2Gp(pos) {
+    let image = 'assets/icons/Car2Go.png';
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: pos,
+      icon: image
+    });
+    this.bounds.extend(marker.position);
+  }
+
   addBikeMarker(bike) {
-    console.log(JSON.stringify(bike));
-    let image = 'assets/icons/'+bike.category.type+".png";
+    let image = 'assets/icons/' + bike.category.type + ".png";
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: new google.maps.LatLng(bike.position.lat, bike.position.lng),
-      icon : image
+      icon: image
     });
 
     let content = "<h4>Information!</h4><br>"+bike.name;
-    this.bounds.extend(marker.position);
-    marker.addListener('click', ()=>this.openBikeDetail(bike))
+    //this.bounds.extend(marker.position);
+    marker.addListener('click', () => this.openBikeDetail(bike))
     //this.addInfoWindow(marker, content);
 
   }
@@ -123,7 +153,7 @@ export class HomePage {
 
   }
 
-   onSlideChanged() {
+  onSlideChanged() {
     let currentIndex = this.slider.getActiveIndex();
     console.log("Current index is", currentIndex);
   }
