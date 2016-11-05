@@ -3,7 +3,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Slides, NavController} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import {NFC} from 'ionic-native';
-import {MapsStyle} from '../../util/maps-util';
+import {userLocation, MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data'
 import {Car2GoService} from '../../util/car2go'
 
@@ -34,10 +34,12 @@ export class HomePage {
       zoom: true,
       zoomMax: 2,
       //loop: true,
-      spaceBetween: 20,
+      spaceBetween: 1,
       initialSlide: 0
     };
-  }
+}
+
+  
 
   ionViewDidLoad() {
     this.loadMap();
@@ -49,10 +51,11 @@ export class HomePage {
   }
 
   loadMap() {
-
     Geolocation.getCurrentPosition().then((position) => {
 
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      
+
 
       let mapOptions = {
         center: latLng,
@@ -79,10 +82,12 @@ export class HomePage {
 
 
   addMyPositionMarker(pos) {
+        let image = 'assets/icons/standort.png';
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: pos,
+      icon : image
     });
     this.bounds.extend(marker.position);
     let content = "<h4>Hallo hier sind wir!</h4>";
@@ -90,7 +95,6 @@ export class HomePage {
   }
 
   addBikeMarker(bike) {
-    console.log(JSON.stringify(bike));
     let image = 'assets/icons/'+bike.category.type+".png";
     let marker = new google.maps.Marker({
       map: this.map,
@@ -99,7 +103,6 @@ export class HomePage {
       icon : image
     });
 
-    let content = "<h4>Information!</h4><br>"+bike.name;
     this.bounds.extend(marker.position);
     marker.addListener('click', ()=>this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);

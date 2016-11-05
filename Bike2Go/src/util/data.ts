@@ -50,7 +50,7 @@ export let Bikes= [
         lng: "9.212267"
     }
     },
-     { id : 1,
+     { id : 4,
     name : "Betty",
     description: "Outdoor Fahrrad",
     maintenanceStatus : 404,
@@ -66,6 +66,22 @@ export let Bikes= [
         lat: "48.816808",
         lng: "9.211650"
     }
-
+    },
+    { id : 5,
+    name : "Fahrrädle",
+    description: "Outdoor Fahrrad",
+    maintenanceStatus : 200,
+    rating : 4,
+    pictureId : "betty",
+    category : {
+        id: 4,
+    type: "EBIKE",
+    price : 2, 
+    name : "E-Bike"
+    },
+    position : {
+        lat: "48.819808",
+        lng: "9.218650"
+    }
     }
 ]

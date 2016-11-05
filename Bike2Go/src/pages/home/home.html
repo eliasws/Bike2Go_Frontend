@@ -21,7 +21,9 @@
     <ion-slides #mySlider (ionDidChange)="onSlideChanged()" [options]="slideOptions" >
 
       <ion-slide *ngFor='let bike of bikes'>
+        <div class="image-container">
         <img (click)="openBikeDetail(bike)" src="assets/img/{{bike.pictureId}}.jpg">
+        </div>
         <label>{{bike.name}}</label>
       </ion-slide>
 
