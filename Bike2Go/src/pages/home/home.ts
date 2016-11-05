@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Slides, NavController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
+import {NFC} from 'ionic-native';
+
 
 declare var google;
 
@@ -16,6 +18,8 @@ export class HomePage {
   slideOptions: any;
 
   constructor(public navCtrl: NavController) {
+    NFC.addNdefListener((onSucces)=>{alert("Du huso!"), (onError)=>{alert("no nfc?")}})
+
     this.slideOptions = {
       effect: "slide",
       slidesPerView: 3,
