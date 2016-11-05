@@ -33,7 +33,7 @@
     "@ionic/app-scripts": "0.0.39",
     "typescript": "2.0.6"
   },
-  "description": "ionic-maps: An Ionic project",
+  "description": "Bikesharing easy",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
