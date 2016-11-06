@@ -1,19 +1,20 @@
-import { BikeDetailPage } from '../bike-detail/bike-detail';
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Slides, ModalController, Platform } from 'ionic-angular';
+import {of} from '../../../node_modules/rxjs/src/observable/of';
+import {BikeDetailPage} from '../bike-detail/bike-detail';
+import {Component, NgModule, ViewChild, ElementRef} from '@angular/core';
+import {Slides, ModalController, Platform} from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import { MapsStyle} from '../../util/maps-util';
+import {MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data';
 import {Car2GoService} from '../../util/car2go';
 import {ConfirmationPage} from '../confirmation/confirmation';
-
+import {BikeFilterPipe} from '../../pipes/bike-filter-pipe';
 
 declare var google:any;
 declare var nfc:any;
 
 @Component({
   selector: 'home-page',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
   bikeDetailPage = BikeDetailPage;
@@ -21,8 +22,10 @@ export class HomePage {
   @ViewChild('mySlider') slider: Slides;
   map: any;
   bikes: any;
+  filteredBikes: any;
   slideOptions: any;
   bounds = new google.maps.LatLngBounds();
+  filterCategory = "ALL";
 
 
   constructor(public modalCtrl: ModalController, public car2go :Car2GoService, public platform: Platform) {
@@ -158,6 +161,7 @@ addNfc(){
   }
 
   addBikeMarker(bike) {
+    if(this.filterCategory != "ALL" && bike.category.type != this.filterCategory) return;    
     let image = 'assets/icons/' + bike.category.type + ".png";
     let marker = new google.maps.Marker({
       map: this.map,

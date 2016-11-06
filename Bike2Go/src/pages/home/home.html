@@ -1,13 +1,13 @@
 
 <ion-content>
  <ion-fab top right >
-   <button ion-fab color="light"><ion-icon name="funnel"></ion-icon></button>
+   <button ion-fab color="light" (click)="filterCategory='ALL'"><ion-icon name="funnel"></ion-icon></button>
    <ion-fab-list side="bottom">
-     <button ion-fab><img src="/assets/icons/bike.png"></button>
-     <button ion-fab><img src="/assets/icons/ebike.png"></button>
-     <button ion-fab><img src="/assets/icons/outdoor.png"></button>
-     <button ion-fab><img src="/assets/icons/sport.png"></button>
-     <button ion-fab><img src="/assets/icons/car2go.png"></button>
+     <button ion-fab (click)="filterCategory='BIKE'"><img src="/assets/icons/bike.png"></button>
+     <button ion-fab (click)="filterCategory='EBIKE'"><img src="/assets/icons/ebike.png"></button>
+     <button ion-fab (click)="filterCategory='OUTDOOR'"><img src="/assets/icons/outdoor.png"></button>
+     <button ion-fab (click)="filterCategory='SPORT'"><img src="/assets/icons/sport.png"></button>
+     <button ion-fab (click)="filterCategory='NONE'"><img src="/assets/icons/car2go.png"></button>
    </ion-fab-list>
  </ion-fab>
 
@@ -21,13 +21,12 @@
   <div class="picture-bar">
     <ion-slides #mySlider (ionDidChange)="onSlideChanged()" [options]="slideOptions" >
 
-      <ion-slide *ngFor='let bike of bikes'>
+      <ion-slide *ngFor="let bike of bikes | filter:{category:filterCategory}">
         <div class="image-container">
         <img (click)="openBikeDetail(bike)" src="assets/img/{{bike.pictureId}}.jpg">
         </div>
         <label>{{bike.name}}</label>
       </ion-slide>
-
     </ion-slides>
   </div>
 

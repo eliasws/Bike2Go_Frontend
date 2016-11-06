@@ -13,6 +13,7 @@ import {Car2GoService} from '../util/car2go';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {LocationUtil} from '../providers/location-util';
 import {BikeApiUtil} from '../providers/bike-api-util';
+import {BikeFilterPipe} from '../pipes/bike-filter-pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {BikeApiUtil} from '../providers/bike-api-util';
     TabsPage,
     ListViewPage,
     ConfirmationPage,
-    ChartsPage
+    ChartsPage,
+    BikeFilterPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp), HttpModule,
@@ -39,6 +41,6 @@ import {BikeApiUtil} from '../providers/bike-api-util';
     ConfirmationPage,
     ChartsPage
   ],
-  providers: [Car2GoService,LocationUtil,BikeApiUtil]
+  providers: [Car2GoService,LocationUtil,BikeApiUtil],
 })
 export class AppModule {}
