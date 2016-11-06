@@ -6,7 +6,6 @@ import {MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data';
 import {Car2GoService} from '../../util/car2go';
 import {ConfirmationPage} from '../confirmation/confirmation';
-import {BikeFilterPipe} from '../../pipes/bike-filter-pipe';
 
 declare var google: any;
 declare var nfc: any;

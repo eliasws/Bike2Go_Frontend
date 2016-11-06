@@ -13,8 +13,8 @@ export let Bikes= [
     name : "Stadtrad"
     },
     position : {
-        lat: "48.814630",
-        lng: "9.212267"
+        lat: "48.815193",
+        lng: "9.212320"
     }
     },
      { id : 2,
@@ -73,13 +73,13 @@ export let Bikes= [
     },
     { id : 5,
     name : "Fahrrädle",
-    description: "Outdoor",
+    description: "Super simples Über E-Bike",
     maintenanceStatus : 100,
     rating : 4,
-    ratingCount : 156,
-    pictureId : "betty",
+    ratingCount : 46,
+    pictureId : "fahrraedle",
     category : {
-        id: 4,
+        id: 3,
     type: "EBIKE",
     price : 2, 
     name : "E-Bike"
@@ -87,6 +87,153 @@ export let Bikes= [
     position : {
         lat: "48.819808",
         lng: "9.218650"
+    }
+    },
+
+
+
+        { id : 6,
+    name : "Bikel Jackson",
+    description: "Welcome to Bikerland Ranch.",
+    maintenanceStatus : 100,
+    rating : 1,
+    ratingCount : 45,
+    pictureId : "bikel_jackson",
+    category : {
+        id: 4,
+    type: "OUTDOOR",
+    price : 2, 
+    name : "Outdoor"
+    },
+    position : {
+        lat: "48.836808",
+        lng: "9.21540"
+    }
+    },
+        { id : 7,
+    name : "Beauty and the Bike",
+    description: "Outdoor",
+    maintenanceStatus : 100,
+    rating : 2,
+    ratingCount : 3,
+    pictureId : "stadt_bike",
+    category : {
+        id: 1,
+    type: "BIKE",
+    price : 2, 
+    name : "Stadtrad"
+    },
+    position : {
+        lat: "48.819808",
+        lng: "9.218650"
+    }
+    },
+    { id : 8,
+    name : "BikeDonalds",
+    description: "Tolles Bike",
+    maintenanceStatus : 100,
+    rating : 4,
+    ratingCount : 5,
+    pictureId : "donalds",
+    category : {
+        id: 1,
+    type: "BIKE",
+    price : 2, 
+    name : "Stadtrad"
+    },
+    position : {
+        lat: "48.819808",
+        lng: "9.218650"
+    }
+    },
+        { id : 9,
+    name : "Lambikini",
+    description: "Mega des teure.",
+    maintenanceStatus : 200,
+    rating : 4,
+    ratingCount : 125,
+    pictureId : "lambikini",
+    category : {
+        id: 5,
+    type: "SPORT",
+    price : 25, 
+    name : "Rennrad"
+    },
+    position : {
+        lat: "48.819618",
+        lng: "9.214432"
+    }
+    },
+        { id : 10,
+    name : "Magic Bike",
+    description: "Sexy bike.",
+    maintenanceStatus : 100,
+    rating : 4,
+    ratingCount : 32,
+    pictureId : "kids",
+    category : {
+        id: 3,
+    type: "EBIKE",
+    price : 1.4, 
+    name : "E-Bike"
+    },
+    position : {
+        lat: "48.814508",
+        lng: "9.219250"
+    }
+    },
+        { id : 11,
+    name : "Bike Mac",
+    description: "Fahrrad, das fährt.",
+    maintenanceStatus : 300,
+    rating : 4,
+    ratingCount : 1,
+    pictureId : "royal_bike_s",
+    category : {
+        id: 4,
+    type: "SPORT",
+    price : 1.8, 
+    name : "Rennrad"
+    },
+    position : {
+        lat: "48.820108",
+        lng: "9.219421"
+    }
+    },
+        { id : 12,
+    name : "Big Tasty Biken",
+    description: "Das Königliche.",
+    maintenanceStatus : 100,
+    rating : 4,
+    ratingCount : 156,
+    pictureId : "royal_bike_s",
+    category : {
+        id: 1,
+    type: "BIKE",
+    price : 5, 
+    name : "Stadtrad"
+    },
+    position : {
+        lat: "48.816548",
+        lng: "9.217450"
+    }
+    },
+        { id : 13,
+    name : "Just call it bike.",
+    description: "Bike.",
+    maintenanceStatus : 100,
+    rating : 4,
+    ratingCount : 156,
+    pictureId : "justbike",
+    category : {
+        id: 3,
+    type: "EBIKE",
+    price : 0.5, 
+    name : "E-Bike"
+    },
+    position : {
+        lat: "48.8163408",
+        lng: "9.212350"
     }
     }
 ]
