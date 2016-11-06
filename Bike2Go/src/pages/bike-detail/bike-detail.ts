@@ -19,6 +19,9 @@ export class BikeDetailPage {
   ratingStar3: any;
   ratingStar4: any;
   ratingStar5: any;
+  lockOpen:boolean = false;
+  bringBackDate:any;
+  location:any;
 
   constructor(public navCtrl: NavController,public params:NavParams,public locationUtil:LocationUtil,public bikeApiUtil:BikeApiUtil) {
     this.favIcon = "star-outline";
@@ -27,7 +30,7 @@ export class BikeDetailPage {
 
     this.bike = params.get("bike");
     console.log("bike name: " + this.bike.name);
-    bikeApiUtil.getLockStatus().subscribe((msg)=>{console.log("message arrived: "+msg);});
+    bikeApiUtil.getLockStatus().subscribe((json)=>{console.log("message arrived: "+JSON.stringify(json));this.lockOpen=json.open;});
   }
 
   ionViewDidLoad() {
@@ -67,13 +70,77 @@ export class BikeDetailPage {
         this.ratingStar0 = "star";
     }
   }
+
+  toggleLock() {
+    if(this.lockOpen) {
+      this.closeLock();
+    }
+    else {
+      this.openLock();
+    }
+  }
+
+  getLockStatus() {
+    this.bikeApiUtil.getLockStatus().subscribe((json)=>{console.log("message arrived: "+JSON.stringify(json));this.lockOpen=json.open;});
+  }
   
   makeSound() {
     this.bikeApiUtil.makeSound().subscribe((msg)=>{console.log("message arrived: "+msg);});
   }
 
   openLock() {
-    this.bikeApiUtil.openLock().subscribe((msg)=>{console.log("message arrived: "+msg);});
+    this.bikeApiUtil.openLock().subscribe((msg)=>{console.log("message arrived: "+msg);this.getLockStatus();});
+  }
+
+  closeLock() {
+    this.bikeApiUtil.closeLock().subscribe((msg)=>{console.log("message arrived: "+msg);this.getLockStatus();});
+  }
+
+  getLockImg() {
+    if(this.lockOpen) {
+      return "../../assets/icons/lock_" + this.bike.category.type + "_open.png";
+    }
+    else {
+      return "../../assets/icons/lock_" + this.bike.category.type + ".png";
+    }
+  }
+
+  getMaintenanceDesc() {
+    let maintenanceDesc = "";
+
+    switch(this.bike.maintenanceStatus) {
+      case 100:
+      maintenanceDesc = "OK";
+      break;
+      default:
+      case 200:
+      maintenanceDesc = "Überprüfen";
+      break;
+      case 300:
+      maintenanceDesc = "Reparieren";
+      break;
+    }
+
+    return maintenanceDesc;
+  }
+
+  getMaintenanceIcon() {
+    let maintenanceIcon = "../../assets/icons/";
+
+    switch(this.bike.maintenanceStatus) {
+      case 100:
+      maintenanceIcon += "StatusOK.png";
+      break;
+      default:
+      case 200:
+      maintenanceIcon += "Kontrollieren.png";
+      break;
+      case 300:
+      maintenanceIcon += "Werkzeug.png";
+      break;
+    }
+    
+    return maintenanceIcon;
   }
 
 }
