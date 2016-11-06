@@ -194,5 +194,8 @@ export class HomePage {
     modal.present(modal);
   }
 
+  resetSlider() {
+    this.slider.slideTo(0);
+  }
 
 }

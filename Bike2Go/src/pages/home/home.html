@@ -3,11 +3,11 @@
  <ion-fab top right >
    <button ion-fab color="light" (click)="filterCategory='ALL'"><ion-icon name="funnel"></ion-icon></button>
    <ion-fab-list side="bottom">
-     <button ion-fab (click)="filterCategory='BIKE'"><img src="/assets/icons/bike.png"></button>
-     <button ion-fab (click)="filterCategory='EBIKE'"><img src="/assets/icons/ebike.png"></button>
-     <button ion-fab (click)="filterCategory='OUTDOOR'"><img src="/assets/icons/outdoor.png"></button>
-     <button ion-fab (click)="filterCategory='SPORT'"><img src="/assets/icons/sport.png"></button>
-     <button ion-fab (click)="filterCategory='NONE'"><img src="/assets/icons/car2go.png"></button>
+     <button ion-fab (click)="filterCategory='BIKE';resetSlider();"><img src="/assets/icons/bike.png"></button>
+     <button ion-fab (click)="filterCategory='EBIKE';resetSlider();"><img src="/assets/icons/ebike.png"></button>
+     <button ion-fab (click)="filterCategory='OUTDOOR';resetSlider();"><img src="/assets/icons/outdoor.png"></button>
+     <button ion-fab (click)="filterCategory='SPORT';resetSlider();"><img src="/assets/icons/sport.png"></button>
+     <button ion-fab (click)="filterCategory='NONE';resetSlider();"><img src="/assets/icons/car2go.png"></button>
    </ion-fab-list>
  </ion-fab>
 

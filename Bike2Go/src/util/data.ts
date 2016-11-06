@@ -71,27 +71,24 @@ export let Bikes= [
         lng: "9.211650"
     }
     },
-    { id : 5,
-    name : "Fahrrädle",
-    description: "Super simples Über E-Bike",
+        { id : 5,
+    name : "WohnBike",
+    description: "Fahrrad mit Wohnanhänger.",
     maintenanceStatus : 100,
     rating : 4,
-    ratingCount : 46,
-    pictureId : "fahrraedle",
+    ratingCount : 24,
+    pictureId : "haenger",
     category : {
         id: 3,
-    type: "EBIKE",
-    price : 2, 
-    name : "E-Bike"
+    type: "ANHAENGER",
+    price : 3, 
+    name : "anhaenger"
     },
     position : {
-        lat: "48.819808",
-        lng: "9.218650"
+        lat: "48.8123408",
+        lng: "9.212350"
     }
     },
-
-
-
         { id : 6,
     name : "Bikel Jackson",
     description: "Welcome to Bikerland Ranch.",
@@ -206,7 +203,7 @@ export let Bikes= [
     maintenanceStatus : 100,
     rating : 4,
     ratingCount : 156,
-    pictureId : "royal_bike_s",
+    pictureId : "stadt_bike",
     category : {
         id: 1,
     type: "BIKE",
@@ -234,6 +231,24 @@ export let Bikes= [
     position : {
         lat: "48.8163408",
         lng: "9.212350"
+    }
+    },
+        { id : 14,
+    name : "Fahrrädle",
+    description: "Super simples Über E-Bike",
+    maintenanceStatus : 100,
+    rating : 4,
+    ratingCount : 46,
+    pictureId : "fahrraedle",
+    category : {
+        id: 3,
+    type: "EBIKE",
+    price : 2, 
+    name : "E-Bike"
+    },
+    position : {
+        lat: "48.819808",
+        lng: "9.218650"
     }
     }
 ]
