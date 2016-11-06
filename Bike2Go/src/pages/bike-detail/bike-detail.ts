@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {NavController,NavParams} from 'ionic-angular';
 import {LocationUtil} from '../../providers/location-util';
 import {BikeApiUtil} from '../../providers/bike-api-util';
+import { LaunchNavigator, LaunchNavigatorOptions } from 'ionic-native';
 
 @Component({
   selector: 'page-bike-detail',
@@ -22,6 +23,7 @@ export class BikeDetailPage {
   lockOpen:boolean = false;
   bringBackDate:any;
   location:any;
+  maxDistanceInM = 600;
 
   constructor(public navCtrl: NavController,public params:NavParams,public locationUtil:LocationUtil,public bikeApiUtil:BikeApiUtil) {
     this.favIcon = "star-outline";
@@ -139,6 +141,23 @@ export class BikeDetailPage {
     }
     
     return maintenanceIcon;
+  }
+
+  displayInRangeButtons() {
+    return this.locationUtil.calculateDistance(this.bike.position) <= (this.maxDistanceInM / 1000);
+  }
+
+  startGoogleMapsNavigation() {
+
+    let options: LaunchNavigatorOptions = {
+      start: [this.locationUtil.userPosition.coords.latitude,this.locationUtil.userPosition.coords.longitude]
+    };
+
+    LaunchNavigator.navigate([this.bike.position.lat,this.bike.position.lng],options)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+      );
   }
 
 }

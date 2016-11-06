@@ -13,9 +13,9 @@
       <img style="padding:12px 0px 0px 0px" src="assets/img/{{bike.pictureId}}.jpg">
     </ion-thumbnail>
     <h2>{{bike.name}}</h2>
-    <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> 20 Bewertungen</p>
+    <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> {{bike.ratingCount}} Bewertungen</p>
     <!--button clear item-right>View</button-->
-    <p item-right><b>{{locationUtil.calculateDistance(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
+    <p item-right><b>{{locationUtil.calculateDistanceFormatted(bike.position)}}</b><br>{{bike.category.price}} € / h</p>
   </ion-item>
 </ion-list>
 
