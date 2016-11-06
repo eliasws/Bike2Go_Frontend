@@ -2,12 +2,13 @@ import { BikeDetailPage } from '../bike-detail/bike-detail';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Slides, NavController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import { NFC } from 'ionic-native';
 import { MapsStyle} from '../../util/maps-util';
-import {Bikes} from '../../util/data'
-import {Car2GoService} from '../../util/car2go'
+import {Bikes} from '../../util/data';
+import {Car2GoService} from '../../util/car2go';
 
-declare var google;
+
+declare var google:any;
+declare var nfc:any;
 
 @Component({
   selector: 'home-page',
@@ -41,14 +42,40 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      NFC.addNdefListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)});
-      NFC.addMimeTypeListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
-      NFC.addTagDiscoveredListener("text",(onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
-      //NFC.enabled().then((onSucces) => { alert("NFC!"); console.log(onSucces) });
+      // NFC.addNdefListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)});
+      // NFC.addMimeTypeListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
+      // NFC.addTagDiscoveredListener("text",(onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
+      
+      //   NFC.addTagDiscoveredListener("text",(tagEvent:Event) => this.tagListenerSuccess(tagEvent));
+      //   NFC.addNdefListener((tagEvent:Event) => this.tagListenerSuccess(tagEvent));
+      //       //NFC.enabled().then((onSucces) => { alert("NFC!"); console.log(onSucces) });
+     this.addNfc();
       this.loadMap();
     });
 
   }
+
+
+addNfc(){
+   nfc.addNdefListener (
+        function (nfcEvent) {
+            let tag = nfcEvent.tag,
+                ndefMessage = tag.ndefMessage;
+                let data=nfc.bytesToString(ndefMessage[0].payload).substring(3);
+            // assuming the first record in the message has
+            // a payload that can be converted to a string.
+            //alert(nfc.bytesToString(ndefMessage[0].payload).substring(3));
+        },
+        function () { // success callback
+          return;
+        },
+        function (error) { // error callback
+            alert("Error adding NDEF listener " + JSON.stringify(error));
+        }
+    );
+}
+
+
 
 
   loadMap() {
@@ -130,8 +157,6 @@ export class HomePage {
       position: new google.maps.LatLng(bike.position.lat, bike.position.lng),
       icon: image
     });
-
-    let content = "<h4>Information!</h4><br>"+bike.name;
     //this.bounds.extend(marker.position);
     marker.addListener('click', () => this.changeChosenBike(bike))
     //this.addInfoWindow(marker, content);
