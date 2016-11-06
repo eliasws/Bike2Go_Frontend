@@ -14,8 +14,8 @@
 
 
 <ion-content padding>
-<img src="assets/icons/{{bike.category.type}}_detail.png">
+<img src="assets/icons/log_BIKE.png">
 <p>Möchten sie das Schloss jetzt öffnen?</p>
       <button ion-button style="width:60px;height:60px" >Ja</button>
-      <button ion-button style="width:60px;height:60px" >Nein</button>
+      <button ion-button style="width:60px;height:60px"  (click)="this.navCtrl.pop()">Nein</button>
 </ion-content>

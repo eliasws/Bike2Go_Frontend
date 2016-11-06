@@ -5,6 +5,7 @@ import { Geolocation } from 'ionic-native';
 import { MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data';
 import {Car2GoService} from '../../util/car2go';
+import {ConfirmationPage} from '../confirmation/confirmation';
 
 
 declare var google:any;
@@ -62,12 +63,14 @@ addNfc(){
         function (nfcEvent) {
             let tag = nfcEvent.tag,
                 ndefMessage = tag.ndefMessage;
-                let data=nfc.bytesToString(ndefMessage[0].payload).substring(3);
-            // assuming the first record in the message has
-            // a payload that can be converted to a string.
-            //alert(nfc.bytesToString(ndefMessage[0].payload).substring(3));
+                alert(ndefMessage);
+                //let data=nfc.bytesToString(ndefMessage.payload).substring(3);
+              let modal = this.modalCtrl.create(ConfirmationPage,{data:ndefMessage});
+              modal.present(modal);
+
         },
         function () { // success callback
+          console.log("IRGENDWAS WAR ERFOLGREICH")
           return;
         },
         function (error) { // error callback

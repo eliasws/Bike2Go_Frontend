@@ -1,22 +1,19 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController} from 'ionic-angular';
+import {BikeApiUtil} from '../../providers/bike-api-util';
 
-/*
-  Generated class for the Confirmation page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-confirmation',
   templateUrl: 'confirmation.html'
 })
 export class ConfirmationPage {
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public bikeApiUtil:BikeApiUtil) {}
 
   ionViewDidLoad() {
-    console.log('Hello ConfirmationPage Page');
   }
 
+ openLock() {
+    this.bikeApiUtil.openLock().subscribe((msg)=>{console.log("message arrived: "+msg);});
+  }
 }
