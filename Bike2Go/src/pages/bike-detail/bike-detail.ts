@@ -14,21 +14,13 @@ export class BikeDetailPage {
 
   bike: any;
   favIcon: any;
-  ratingStar0: any;
-  ratingStar1: any;
-  ratingStar2: any;
-  ratingStar3: any;
-  ratingStar4: any;
-  ratingStar5: any;
   lockOpen:boolean = false;
   bringBackDate:any;
   location:any;
-  maxDistanceInM = 600;
+  maxDistanceInM = 100;
 
   constructor(public navCtrl: NavController,public params:NavParams,public locationUtil:LocationUtil,public bikeApiUtil:BikeApiUtil) {
     this.favIcon = "star-outline";
-
-    this.setRating(2);
 
     this.bike = params.get("bike");
     bikeApiUtil.getLockStatus().subscribe((json)=>{console.log("message arrived: "+JSON.stringify(json));this.lockOpen=json.open;});
@@ -47,27 +39,6 @@ export class BikeDetailPage {
     }
     else {
       this.favIcon = "star"
-    }
-  }
-
-  setRating(rating: number) {
-    this.ratingStar0 = "star-outline";
-    this.ratingStar1 = "star-outline";
-    this.ratingStar2 = "star-outline";
-    this.ratingStar3 = "star-outline";
-    this.ratingStar4 = "star-outline";
-    
-    switch(rating) {
-      case 5:
-        this.ratingStar4 = "star";
-      case 4:
-        this.ratingStar3 = "star";
-      case 3:
-        this.ratingStar2 = "star";
-      case 2:
-        this.ratingStar1 = "star";
-      case 1:
-        this.ratingStar0 = "star";
     }
   }
 

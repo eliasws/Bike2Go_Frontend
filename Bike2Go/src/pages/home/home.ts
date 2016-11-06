@@ -92,14 +92,14 @@ addNfc(){
   loadMap() {
     let options = { enableHighAccuracy: true, maximumAge: 100, timeout: 60000 };
 
-    Geolocation.getCurrentPosition(options).then(
+    /*Geolocation.getCurrentPosition(options).then(
       (position) => {
         this.onGeoSuccess(position)
       }, (err) => {
         console.log(err);
-      });
+      });*/
 
-          let latLng = new google.maps.LatLng(48.815384, 9.212546);
+          let latLng = new google.maps.LatLng(48.815235, 9.212438);
           this.createMap(latLng);
   }
 

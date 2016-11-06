@@ -15,7 +15,7 @@ export class LocationUtil {
 
   constructor(public http: Http) {
     console.log('Hello LocationUtil Provider');
-    Geolocation.getCurrentPosition().then((userPosition) => {
+    /*Geolocation.getCurrentPosition().then((userPosition) => {
 
       this.userPosition = userPosition;
       console.log("LATITUDE: " + userPosition.coords.latitude);
@@ -23,7 +23,14 @@ export class LocationUtil {
 
     }, (err) => {
       console.log(err);
-    });
+    });*/
+
+    this.userPosition = {
+      coords: {
+        latitude:48.815235,
+        longitude:9.212438
+      }
+    }
   }
 
   deg2rad(deg) {

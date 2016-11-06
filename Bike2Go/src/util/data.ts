@@ -13,8 +13,8 @@ export let Bikes= [
     name : "Stadtrad"
     },
     position : {
-        lat: "48.814116",
-        lng: "9.210639"
+        lat: "48.814630",
+        lng: "9.212267"
     }
     },
      { id : 2,
@@ -49,8 +49,8 @@ export let Bikes= [
     name : "E-Bike"
     },
       position : {
-        lat: "48.814630",
-        lng: "9.212267"
+       lat: "48.814116",
+        lng: "9.210639"
     }
     },
      { id : 4,
