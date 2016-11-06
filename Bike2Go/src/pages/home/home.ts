@@ -59,24 +59,28 @@ export class HomePage {
 
 
 addNfc(){
+  try {
+  if(nfc || typeof nfc !== 'undefined'){
    nfc.addNdefListener (
         function (nfcEvent) {
             let tag = nfcEvent.tag,
                 ndefMessage = tag.ndefMessage;
-                alert(ndefMessage);
+                //alert(ndefMessage);
                 //let data=nfc.bytesToString(ndefMessage.payload).substring(3);
-              let modal = this.modalCtrl.create(ConfirmationPage,{data:ndefMessage});
+              let modal = this.modalCtrl.create(ConfirmationPage);
               modal.present(modal);
 
         },
         function () { // success callback
-          console.log("IRGENDWAS WAR ERFOLGREICH")
           return;
         },
         function (error) { // error callback
             alert("Error adding NDEF listener " + JSON.stringify(error));
         }
     );
+    }
+    } catch (e) {
+}
 }
 
 
