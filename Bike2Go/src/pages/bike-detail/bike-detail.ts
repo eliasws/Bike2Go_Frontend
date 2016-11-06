@@ -1,13 +1,9 @@
 import {HomePage} from '../home/home';
 import {Component} from '@angular/core';
 import {NavController,NavParams} from 'ionic-angular';
+import {LocationUtil} from '../../providers/location-util';
+import {BikeApiUtil} from '../../providers/bike-api-util';
 
-/*
-  Generated class for the BikeDetail page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-bike-detail',
   templateUrl: 'bike-detail.html'
@@ -24,13 +20,14 @@ export class BikeDetailPage {
   ratingStar4: any;
   ratingStar5: any;
 
-  constructor(public navCtrl: NavController,public params:NavParams) {
+  constructor(public navCtrl: NavController,public params:NavParams,public locationUtil:LocationUtil,public bikeApiUtil:BikeApiUtil) {
     this.favIcon = "star-outline";
 
     this.setRating(2);
 
     this.bike = params.get("bike");
     console.log("bike name: " + this.bike.name);
+    bikeApiUtil.getLockStatus().subscribe((msg)=>{console.log("message arrived: "+msg);});
   }
 
   ionViewDidLoad() {
@@ -69,6 +66,14 @@ export class BikeDetailPage {
       case 1:
         this.ratingStar0 = "star";
     }
+  }
+  
+  makeSound() {
+    this.bikeApiUtil.makeSound().subscribe((msg)=>{console.log("message arrived: "+msg);});
+  }
+
+  openLock() {
+    this.bikeApiUtil.openLock().subscribe((msg)=>{console.log("message arrived: "+msg);});
   }
 
 }

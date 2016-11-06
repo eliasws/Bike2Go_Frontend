@@ -1,6 +1,6 @@
 import { BikeDetailPage } from '../bike-detail/bike-detail';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Slides, NavController, Platform } from 'ionic-angular';
+import { Slides, ModalController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
 import { MapsStyle} from '../../util/maps-util';
 import {Bikes} from '../../util/data';
@@ -23,7 +23,8 @@ export class HomePage {
   slideOptions: any;
   bounds = new google.maps.LatLngBounds();
 
-  constructor(public navCtrl: NavController, public car2go :Car2GoService, public platform: Platform) {
+
+  constructor(public modalCtrl: ModalController, public car2go :Car2GoService, public platform: Platform) {
 
     this.bikes = Bikes;
 
@@ -158,13 +159,9 @@ addNfc(){
       icon: image
     });
     //this.bounds.extend(marker.position);
-    marker.addListener('click', () => this.changeChosenBike(bike))
+    marker.addListener('click', () => this.openBikeDetail(bike))
     //this.addInfoWindow(marker, content);
 
-  }
-
-  changeChosenBike(bike) {
-    this.navCtrl.push(this.bikeDetailPage, { bike: bike });
   }
 
   addInfoWindow(marker, content) {
@@ -182,9 +179,10 @@ addNfc(){
     let currentIndex = this.slider.getActiveIndex();
   }
 
-
   openBikeDetail(bike) {
-    this.navCtrl.push(this.bikeDetailPage, { bike: bike });
+    //this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
+    const modal = this.modalCtrl.create(BikeDetailPage,{bike:bike});
+    modal.present(modal);
   }
 
 
