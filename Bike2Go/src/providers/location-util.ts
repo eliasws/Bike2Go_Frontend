@@ -30,7 +30,9 @@ export class LocationUtil {
     return deg * (Math.PI/180);
   }
 
-  FormatDistance(distance) {
+  calculateDistanceFormatted(bikePosition) {
+    let distance = this.calculateDistance(bikePosition);
+
     if(distance > 1) {
       return Math.round(distance * 10) / 10 + " km";
     }
@@ -50,9 +52,7 @@ export class LocationUtil {
       let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 
       // Distance in km
-      let dist = R * c;
-
-      return this.FormatDistance(dist);
+      return R * c;
     }
     catch (e) {
       return;

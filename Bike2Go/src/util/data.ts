@@ -4,12 +4,13 @@ export let Bikes= [
     description: "Tolles Fahrrad!",
     maintenanceStatus : 100,
     rating : 5,
+    ratingCount : 100,
     pictureId : "tom_dockle",
     category : {
         id: 1,
     type: "BIKE",
     price : 1.50, 
-    name : "Standard"
+    name : "Stadtrad"
     },
     position : {
         lat: "48.814116",
@@ -21,6 +22,7 @@ export let Bikes= [
     description: "Lässiges Rennrad!",
     maintenanceStatus : 100,
     rating : 4,
+    ratingCount : 48,
     pictureId : "monkey",
     category : {
         id: 2,
@@ -38,6 +40,7 @@ export let Bikes= [
     description: "Ebike",
     maintenanceStatus : 200,
     rating : 5,
+    ratingCount : 29,
         pictureId : "rocky",
     category : {
         id: 3,
@@ -55,6 +58,7 @@ export let Bikes= [
     description: "Outdoor Fahrrad",
     maintenanceStatus : 300,
     rating : 3,
+    ratingCount : 3,
     pictureId : "betty",
     category : {
         id: 4,
@@ -72,6 +76,7 @@ export let Bikes= [
     description: "Outdoor",
     maintenanceStatus : 100,
     rating : 4,
+    ratingCount : 156,
     pictureId : "betty",
     category : {
         id: 4,

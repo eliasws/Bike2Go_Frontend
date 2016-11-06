@@ -24,10 +24,10 @@
         <ion-card-title>
           {{bike.name}}
         </ion-card-title>
-        <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> 20 Bewertungen</p>
+        <p><rating [(ngModel)]="bike.rating" readOnly="true"></rating> {{bike.ratingCount}} Bewertungen</p>
           </ion-col>
         <ion-col class="center">
-          <ion-card-title>{{locationUtil.calculateDistance(bike.position)}}</ion-card-title>
+          <ion-card-title>{{locationUtil.calculateDistanceFormatted(bike.position)}}</ion-card-title>
           {{bike.category.price}} € / h
         </ion-col></ion-row></ion-grid>
     </ion-card-content>
@@ -49,8 +49,9 @@
   </ion-card>
   <ion-card>
     <ion-card-content class="center">
-      <button ion-button (click)="toggleLock()" style="background-color:transparent;width:60px;height:60px" icon-only round><img src="{{getLockImg()}}"/></button>
-      <button ion-button (click)="makeSound()" style="width:60px;height:60px" icon-only round><ion-icon name="alarm"></ion-icon></button>
+      <button *ngIf="!displayInRangeButtons()" ion-button (click)="startGoogleMapsNavigation()" style="width:60px;height:60px" icon-only round><ion-icon name="navigate"></ion-icon></button>
+      <button *ngIf="displayInRangeButtons()" ion-button (click)="toggleLock()" style="background-color:transparent;width:60px;height:60px" icon-only round><img src="{{getLockImg()}}"/></button>
+      <button *ngIf="displayInRangeButtons()" ion-button (click)="makeSound()" style="width:60px;height:60px" icon-only round><ion-icon name="alarm"></ion-icon></button>
     </ion-card-content>
   </ion-card>
 </ion-content>
