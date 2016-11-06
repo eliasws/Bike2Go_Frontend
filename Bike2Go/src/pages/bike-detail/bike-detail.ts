@@ -31,12 +31,10 @@ export class BikeDetailPage {
     this.setRating(2);
 
     this.bike = params.get("bike");
-    console.log("bike name: " + this.bike.name);
     bikeApiUtil.getLockStatus().subscribe((json)=>{console.log("message arrived: "+JSON.stringify(json));this.lockOpen=json.open;});
   }
 
   ionViewDidLoad() {
-    console.log('Hello BikeDetailPage Page');
   }
 
   contactOwner() {

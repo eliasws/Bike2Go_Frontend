@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import * as http from 'http';
 import {Http, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
