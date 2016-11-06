@@ -12,34 +12,38 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class BikeApiUtil {
   lockStatus:any;
+  baseUrl = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/';
 
   constructor(public http: Http) {
-    console.log('Hello BikeApiUtil Provider');
   }
 
-  getLockStatus():Observable<any> {
-    var url = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/TomDockle/status';
+  getLockStatus(id?):Observable<any> {
+    let url;
+       id ?  url = this.baseUrl+id+"/status" :  url= this.baseUrl+'TomDockle/status';
     var result = this.http.get(url).map((res) => res.json());
     console.log(result);
     return result;
   }
 
-  makeSound():Observable<any> {
-    var url = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/TomDockle/sound';
+  makeSound(id?):Observable<any> {
+        let url;
+        id ?  url = this.baseUrl+id+"/sound" :  url= this.baseUrl+'TomDockle/sound';
     var result = this.http.get(url).map((res) => res.text());
     console.log(result);
     return result;
   }
 
-  closeLock():Observable<any> {
-    var url = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/TomDockle/close';
+  closeLock(id?):Observable<any> {
+     let url;
+        id ?  url = this.baseUrl+id+"/close" :  url= this.baseUrl+'TomDockle/close';
     var result = this.http.get(url).map((res) => res.text());
     console.log(result);
     return result;
   }
 
-  openLock():Observable<any> {
-    var url = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/TomDockle/open';
+  openLock(id?):Observable<any> {
+       let url;
+        id ?  url = this.baseUrl+id+"/open" :  url= this.baseUrl+'TomDockle/open'
     var result = this.http.get(url).map((res) => res.text());
     console.log(result);
     return result;
