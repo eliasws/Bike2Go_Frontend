@@ -2,14 +2,12 @@ import { BikeDetailPage } from '../bike-detail/bike-detail';
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Slides, ModalController, Platform } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
-import { MapsStyle} from '../../util/maps-util';
-import {Bikes} from '../../util/data';
-import {Car2GoService} from '../../util/car2go';
-import {ConfirmationPage} from '../confirmation/confirmation';
+import { MapsStyle } from '../../util/maps-util';
+import { Bikes } from '../../util/data';
+import { Car2GoService } from '../../util/car2go';
 
-
-declare var google:any;
-declare var nfc:any;
+declare var google: any;
+declare var nfc: any;
 
 @Component({
   selector: 'home-page',
@@ -25,7 +23,7 @@ export class HomePage {
   bounds = new google.maps.LatLngBounds();
 
 
-  constructor(public modalCtrl: ModalController, public car2go :Car2GoService, public platform: Platform) {
+  constructor(public modalCtrl: ModalController, public car2go: Car2GoService, public platform: Platform) {
 
     this.bikes = Bikes;
 
@@ -44,46 +42,43 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.platform.ready().then(() => {
-      // NFC.addNdefListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)});
-      // NFC.addMimeTypeListener((onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
-      // NFC.addTagDiscoveredListener("text",(onSucces) => { alert("NFC!"); console.log(onSucces) }, (onError) => { alert("no nfc?"); console.log(onError)})
-      
-      //   NFC.addTagDiscoveredListener("text",(tagEvent:Event) => this.tagListenerSuccess(tagEvent));
-      //   NFC.addNdefListener((tagEvent:Event) => this.tagListenerSuccess(tagEvent));
-      //       //NFC.enabled().then((onSucces) => { alert("NFC!"); console.log(onSucces) });
-     this.addNfc();
+      this.addNfc();
       this.loadMap();
     });
 
   }
 
 
-addNfc(){
-  try {
-  if(nfc || typeof nfc !== 'undefined'){
-   nfc.addNdefListener (
-        function (nfcEvent) {
+  addNfc() {
+    try {
+      if (nfc || typeof nfc !== 'undefined') {
+        nfc.addNdefListener(
+           (nfcEvent) => {
             let tag = nfcEvent.tag,
-                ndefMessage = tag.ndefMessage;
-                //alert(ndefMessage);
-                //let data=nfc.bytesToString(ndefMessage.payload).substring(3);
-              let modal = this.modalCtrl.create(ConfirmationPage);
-              modal.present(modal);
+              ndefMessage = tag.ndefMessage;
+                          console.log(JSON.stringify(ndefMessage));
+              let data=nfc.bytesToString(ndefMessage[0].payload).substring(3);
+            //alert(ndefMessage);
+            console.log(JSON.stringify(data));
+            console.log(data.id);
+            let bike = this.bikes[JSON.parse(data).id-1];
+          this.openBikeDetail(bike);
+            //let data=nfc.bytesToString(ndefMessage.payload).substring(3);
 
-        },
-        function () { // success callback
-          return;
-        },
-        function (error) { // error callback
+          },
+          function () { // success callback
+            return;
+          },
+          function (error) { // error callback
             alert("Error adding NDEF listener " + JSON.stringify(error));
-        }
-    );
-    }
+          }
+        );
+      }
     } catch (e) {
-}
-}
-
-
+      // let modal = this.modalCtrl.create(BikeDetailPage,{bike:bike});
+      //         modal.present(modal);
+    }
+  }
 
 
   loadMap() {
@@ -96,8 +91,8 @@ addNfc(){
         console.log(err);
       });
 
-          let latLng = new google.maps.LatLng(48.815384, 9.212546);
-          this.createMap(latLng);
+    let latLng = new google.maps.LatLng(48.815384, 9.212546);
+    this.createMap(latLng);
   }
 
   onGeoSuccess(position) {
@@ -116,21 +111,21 @@ addNfc(){
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.map.setOptions({ styles: MapsStyle });
-    this.car2go.getAll().subscribe((cars)=>{
+    this.car2go.getAll().subscribe((cars) => {
 
 
-      for (let car of cars){
-          let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
-          this.addMyPositionCar2Gp(latLng);
+      for (let car of cars) {
+        let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
+        this.addMyPositionCar2Gp(latLng);
       }
-    
-  });
+
+    });
     this.addMyPositionMarker(latLng);
     for (let bike of this.bikes) {
       this.addBikeMarker(bike);
     }
 
-//this.map.fitBounds(this.bounds);
+    //this.map.fitBounds(this.bounds);
   }
 
   addMyPositionMarker(pos) {
@@ -146,7 +141,7 @@ addNfc(){
     this.addInfoWindow(marker, content);
   }
 
-    addMyPositionCar2Gp(pos) {
+  addMyPositionCar2Gp(pos) {
     let image = 'assets/icons/Car2Go.png';
     let marker = new google.maps.Marker({
       map: this.map,
@@ -188,7 +183,7 @@ addNfc(){
 
   openBikeDetail(bike) {
     //this.navCtrl.push(this.bikeDetailPage,{bike:bike});    
-    const modal = this.modalCtrl.create(BikeDetailPage,{bike:bike});
+    const modal = this.modalCtrl.create(BikeDetailPage, { bike: bike });
     modal.present(modal);
   }
 
