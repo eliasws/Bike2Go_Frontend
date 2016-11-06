@@ -2,7 +2,7 @@ export let Bikes= [
    { id : 1,
     name : "Tom Dockle",
     description: "Tolles Fahrrad!",
-    maintenanceStatus : 200,
+    maintenanceStatus : 100,
     rating : 5,
     pictureId : "tom_dockle",
     category : {
@@ -19,7 +19,7 @@ export let Bikes= [
      { id : 2,
     name : "Monkey",
     description: "Lässiges Rennrad!",
-    maintenanceStatus : 200,
+    maintenanceStatus : 100,
     rating : 4,
     pictureId : "monkey",
     category : {
@@ -53,7 +53,7 @@ export let Bikes= [
      { id : 4,
     name : "Betty",
     description: "Outdoor Fahrrad",
-    maintenanceStatus : 404,
+    maintenanceStatus : 300,
     rating : 3,
     pictureId : "betty",
     category : {
@@ -70,7 +70,7 @@ export let Bikes= [
     { id : 5,
     name : "Fahrrädle",
     description: "Outdoor",
-    maintenanceStatus : 200,
+    maintenanceStatus : 100,
     rating : 4,
     pictureId : "betty",
     category : {

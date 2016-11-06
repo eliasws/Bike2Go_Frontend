@@ -19,7 +19,7 @@ export class BikeApiUtil {
 
   getLockStatus():Observable<any> {
     var url = 'https://bikebackend.herokuapp.com/bike/api/v1/lock/TomDockle/status';
-    var result = this.http.get(url).map((res) => res.text());
+    var result = this.http.get(url).map((res) => res.json());
     console.log(result);
     return result;
   }
