@@ -117,18 +117,22 @@ export class HomePage {
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.map.setOptions({ styles: MapsStyle });
-    this.car2go.getAll().subscribe((cars) => {
+    if(this.filterCategory == "ALL" || this.filterCategory == "NONE") {
+      this.car2go.getAll().subscribe((cars) => {
 
 
-      for (let car of cars) {
-        let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
-        this.addMyPositionCar2Gp(latLng);
-      }
+        for (let car of cars) {
+          let latLng = new google.maps.LatLng(car.coordinates[1], car.coordinates[0]);
+          this.addMyPositionCar2Gp(latLng);
+        }
 
-    });
+      });
+    }
     this.addMyPositionMarker(latLng);
     for (let bike of this.bikes) {
-      this.addBikeMarker(bike);
+      if(this.filterCategory == "ALL" || bike.category.type == this.filterCategory) {
+        this.addBikeMarker(bike);
+      }
     }
 
     //this.map.fitBounds(this.bounds);
@@ -170,7 +174,7 @@ export class HomePage {
     //this.bounds.extend(marker.position);
     marker.addListener('click', () => this.openBikeDetail(bike))
     //this.addInfoWindow(marker, content);
-
+    
   }
 
   addInfoWindow(marker, content) {
@@ -196,6 +200,13 @@ export class HomePage {
 
   resetSlider() {
     this.slider.slideTo(0);
+  }
+
+  updateFilter(filterCategory) {
+    this.filterCategory = filterCategory;
+    let latLng = new google.maps.LatLng(48.815384, 9.212546);
+    this.createMap(latLng);
+    this.resetSlider();
   }
 
 }
